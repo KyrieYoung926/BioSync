@@ -5,6 +5,17 @@
   margin-top: 20px;
 }
 
+.page-title {
+  text-align: center; /* 居中显示 */
+  margin-top: 5px; /* 顶部间距 */
+}
+
+.bold-italic-text {
+  font-weight: bold; /* 加粗字体 */
+  font-style: italic; /* 倾斜字体 */
+  font-size: 40px; /* 字体大小，根据需要调整 */
+}
+
 .time-container {
   margin-top: 20px;
   display: flex;
@@ -23,7 +34,7 @@
 }
 
 .left-box, .right-box {
-  width: 48%; /* 或者使用 flex: 1; 控制宽度 */
+  width: 72%; /* 或者使用 flex: 1; 控制宽度 */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

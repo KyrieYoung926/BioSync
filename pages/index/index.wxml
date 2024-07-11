@@ -1,4 +1,7 @@
 <view class="container">
+  <view class="page-title">
+    <text class="bold-italic-text">BioSync™</text>
+  </view>
   <text class="title">行程起终点</text>
   <!-- 左侧区域：出发地 -->
   <view class="left-box">
