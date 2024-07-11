@@ -5,6 +5,20 @@
   margin-top: 5px; /* 顶部间距 */
 }
 
+.daylight-bar {
+  height: 20px;
+  background-color: #f0f0f0;
+  position: relative;
+}
+
+.daylight-segment {
+  height: 100%;
+  background-color: #FFA500; /* 橙色表示日出到日落时间段 */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .bold-text {
   font-weight: bold; /* 加粗字体 */
   font-style: italic; /* 倾斜字体 */

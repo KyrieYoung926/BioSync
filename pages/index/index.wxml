@@ -42,6 +42,25 @@
   </view>
 </view>
 
+<!-- 日出日落时间 -->
+<view class="sunrise-sunset">
+  <text>出发地日出时间：</text>
+  <text>{{ departureSunrise }}</text>
+  <text>出发地日落时间：</text>
+  <text>{{ departureSunrise }}</text>
+  <!-- <view class="daylight-bar" style="width: 100%;">
+    <view class="daylight-segment" style="width: {{ 50 }}%;"></view>
+  </view> -->
+  <text>到达地日出时间：</text>
+  <text>{{ departureSunrise }}</text>
+  <text>到达地日落时间：</text>
+  <text>{{ departureSunrise }}</text>
+  <!-- <view class="daylight-bar" style="width: 100%;">
+    <view class="daylight-segment" style="width: {{ 30 }}%;"></view>
+  </view> -->
+</view>
+
+
 <!-- 光强手动控制 -->
 
   <text class="title">光强手动控制</text>
