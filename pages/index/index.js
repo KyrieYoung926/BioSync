@@ -5,9 +5,83 @@ Page({
     deviceId: null,
     serviceId: null,
     characteristicId: null,
-    devices: []
+    devices: [],
+    departureLocation: '',
+    departureLatitude: null,
+    departureLongitude: null,
+    arrivalLocation: '',
+    arrivalLatitude: null,
+    arrivalLongitude: null,
+    departureTime: '12:00',
+    arrivalTime: '14:00'
   },
 
+  // 当起飞时间选择改变时的处理函数
+  bindDepartureTimeChange: function(e) {
+    this.setData({
+      departureTime: e.detail.value
+    });
+    // 这里可以调用存储函数，将 departureTime 存储到服务器或本地存储中
+    // 示例：this.saveDepartureTime(e.detail.value);
+  },
+
+  // 当到达时间选择改变时的处理函数
+  bindArrivalTimeChange: function(e) {
+    this.setData({
+      arrivalTime: e.detail.value
+    });
+    // 这里可以调用存储函数，将 arrivalTime 存储到服务器或本地存储中
+    // 示例：this.saveArrivalTime(e.detail.value);
+  },
+
+  // 示例存储函数，你可以根据实际情况调整
+  saveDepartureTime: function(time) {
+    // 将起飞时间保存到服务器或本地存储
+    console.log('Saving departure time:', time);
+    // 示例：使用 wx.request 发送到服务器保存
+  },
+
+  saveArrivalTime: function(time) {
+    // 将到达时间保存到服务器或本地存储
+    console.log('Saving arrival time:', time);
+    // 示例：使用 wx.request 发送到服务器保存
+  },
+
+  // 选择出发地点
+  chooseDepartureLocation: function () {
+    wx.chooseLocation({
+      success: (res) => {
+        console.log(res);
+        this.setData({
+          departureLocation: res.name,
+          departureLatitude: res.latitude,
+          departureLongitude: res.longitude,
+        });
+      },
+      fail: (err) => {
+        console.error(err);
+      },
+    });
+  },
+
+  // 选择到达地点
+  chooseArrivalLocation: function () {
+    wx.chooseLocation({
+      success: (res) => {
+        console.log(res);
+        this.setData({
+          arrivalLocation: res.name,
+          arrivalLatitude: res.latitude,
+          arrivalLongitude: res.longitude,
+        });
+      },
+      fail: (err) => {
+        console.error(err);
+      },
+    });
+  },
+
+  
   connectBluetooth() {
     let that = this;
     wx.openBluetoothAdapter({

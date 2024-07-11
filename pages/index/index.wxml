@@ -1,7 +1,48 @@
 <view class="container">
-  <text class="title">PWM光强控制</text>
+  <text class="title">行程起终点</text>
+  <!-- 左侧区域：出发地 -->
+  <view class="left-box">
+    <view>出发地：</view>
+    <button type="primary" bindtap="chooseDepartureLocation">选择出发地点</button>
+    <view>出发地点名：{{departureLocation}}</view>
+    <view>经度：{{departureLongitude}}</view>
+    <view>纬度：{{departureLatitude}}</view>
+  </view>
+  
+  <!-- 右侧区域：到达地 -->
+  <view class="right-box">
+    <view>到达地：</view>
+    <button type="primary" bindtap="chooseArrivalLocation">选择到达地点</button>
+    <view>到达地点名：{{arrivalLocation}}</view>
+    <view>经度：{{arrivalLongitude}}</view>
+    <view>纬度：{{arrivalLatitude}}</view>
+  </view>
+
+<!-- 时间选择 -->
+<view class="time-container">
+  <view class="time-box">
+    <text>起飞时间（当地）：</text>
+    <picker mode="time" value="{{departureTime}}" bindchange="bindDepartureTimeChange">
+      <view class="picker">
+        {{departureTime}}
+      </view>
+    </picker>
+  </view>
+  
+  <view class="time-box">
+    <text>到达时间（当地）：</text>
+    <picker mode="time" value="{{arrivalTime}}" bindchange="bindArrivalTimeChange">
+      <view class="picker">
+        {{arrivalTime}}
+      </view>
+    </picker>
+  </view>
+</view>
+
+  <text class="title">光强手动控制</text>
   <slider min="0" max="255" show-value value="{{dutyCycle}}" bindchange="onSliderChange"/>
   <button type="primary" bindtap="connectBluetooth">连接蓝牙</button>
   <button type="warn" bindtap="disconnectBluetooth">断开连接</button>
   <text>{{status}}</text>
+  
 </view>
