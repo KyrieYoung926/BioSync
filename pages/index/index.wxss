@@ -1,29 +1,41 @@
 /* pages/index/index.wxss */
+
+.page-title {
+  text-align: center; /* 居中显示 */
+  margin-top: 5px; /* 顶部间距 */
+}
+
+.bold-text {
+  font-weight: bold; /* 加粗字体 */
+  font-style: italic; /* 倾斜字体 */
+  font-size: 45px; /* 字体大小，根据需要调整 */
+}
+
 .container {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-.time-container {
-  margin-top: 20px;
+.datetime-container {
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-.picker {
-  line-height: 40px;
-}
-
-.time-box {
+.datetime-box {
   width: 45%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
+.picker {
+  line-height: 40px;
+}
+
 .left-box, .right-box {
-  width: 48%; /* 或者使用 flex: 1; 控制宽度 */
+  width: 70%; /* 或者使用 flex: 1; 控制宽度 */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

@@ -1,4 +1,7 @@
 <view class="container">
+  <view class="page-title">
+    <text class="bold-text">BioSync™</text>
+  </view>
   <text class="title">行程起终点</text>
   <!-- 左侧区域：出发地 -->
   <view class="left-box">
@@ -18,26 +21,28 @@
     <view>纬度：{{arrivalLatitude}}</view>
   </view>
 
-<!-- 时间选择 -->
-<view class="time-container">
-  <view class="time-box">
-    <text>起飞时间（当地）：</text>
-    <picker mode="time" value="{{departureTime}}" bindchange="bindDepartureTimeChange">
+<!-- 日期时间选择 -->
+<view class="datetime-container">
+  <view class="datetime-box">
+    <text>起飞日期时间：</text>
+    <picker mode="datetime" value="{{departureDateTime}}" bindchange="bindDepartureDateTimeChange">
       <view class="picker">
-        {{departureTime}}
+        {{departureDateTime}}
       </view>
     </picker>
   </view>
   
-  <view class="time-box">
-    <text>到达时间（当地）：</text>
-    <picker mode="time" value="{{arrivalTime}}" bindchange="bindArrivalTimeChange">
+  <view class="datetime-box">
+    <text>到达日期时间：</text>
+    <picker mode="datetime" value="{{arrivalDateTime}}" bindchange="bindArrivalDateTimeChange">
       <view class="picker">
-        {{arrivalTime}}
+        {{arrivalDateTime}}
       </view>
     </picker>
   </view>
 </view>
+
+<!-- 光强手动控制 -->
 
   <text class="title">光强手动控制</text>
   <slider min="0" max="255" show-value value="{{dutyCycle}}" bindchange="onSliderChange"/>
