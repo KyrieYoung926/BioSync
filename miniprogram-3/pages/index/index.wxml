@@ -1,0 +1,7 @@
+<view class="container">
+  <text class="title">PWM光强控制</text>
+  <slider min="0" max="255" show-value value="{{dutyCycle}}" bindchange="onSliderChange"/>
+  <button type="primary" bindtap="connectBluetooth">连接蓝牙</button>
+  <button type="warn" bindtap="disconnectBluetooth">断开连接</button>
+  <text>{{status}}</text>
+</view>
