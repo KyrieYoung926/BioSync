@@ -21,22 +21,43 @@
     <view>纬度：{{arrivalLatitude}}</view>
   </view>
 
-<!-- 日期时间选择 -->
-<view class="datetime-container">
-  <view class="datetime-box">
-    <text>起飞日期时间：</text>
-    <picker mode="datetime" value="{{departureDateTime}}" bindchange="bindDepartureDateTimeChange">
+<!-- 时间选择 -->
+
+<view class="date-container">
+  <view class="date-box">
+    <text>起飞日期：</text>
+    <picker mode="date" value="{{departureTime}}" bindchange="bindDepartureDateChange">
       <view class="picker">
-        {{departureDateTime}}
+        {{departureDate}}
+      </view>
+    </picker>
+  </view>
+
+<view class="time-container">
+  <view class="time-box">
+    <text>起飞时间：</text>
+    <picker mode="time" value="{{departureTime}}" bindchange="bindDepartureTimeChange">
+      <view class="picker">
+        {{departureTime}}
       </view>
     </picker>
   </view>
   
-  <view class="datetime-box">
-    <text>到达日期时间：</text>
-    <picker mode="datetime" value="{{arrivalDateTime}}" bindchange="bindArrivalDateTimeChange">
+  <view class="date-box">
+    <text>到达时间：</text>
+    <picker mode="date" value="{{arrivalTime}}" bindchange="bindArrivalDateChange">
       <view class="picker">
-        {{arrivalDateTime}}
+        {{arrivalDate}}
+      </view>
+    </picker>
+  </view>
+</view>
+
+  <view class="time-box">
+    <text>到达时间：</text>
+    <picker mode="time" value="{{arrivalTime}}" bindchange="bindArrivalTimeChange">
+      <view class="picker">
+        {{arrivalTime}}
       </view>
     </picker>
   </view>
@@ -47,19 +68,39 @@
   <text>出发地日出时间：</text>
   <text>{{ departureSunrise }}</text>
   <text>出发地日落时间：</text>
-  <text>{{ departureSunrise }}</text>
-  <!-- <view class="daylight-bar" style="width: 100%;">
-    <view class="daylight-segment" style="width: {{ 50 }}%;"></view>
-  </view> -->
+  <text>{{ departureSunset }}</text>
+  <view class="daylight-bar" style="width: 100%;">
+    <view class="daylight-segment" style="width: {{ departureDaylightPercentage }}%;"></view>
+  </view>
   <text>到达地日出时间：</text>
-  <text>{{ departureSunrise }}</text>
+  <text>{{ arrivalSunrise }}</text>
   <text>到达地日落时间：</text>
-  <text>{{ departureSunrise }}</text>
-  <!-- <view class="daylight-bar" style="width: 100%;">
-    <view class="daylight-segment" style="width: {{ 30 }}%;"></view>
-  </view> -->
+  <text>{{ arrivalSunset }}</text>
+  <view class="daylight-bar" style="width: 100%;">
+    <view class="daylight-segment" style="width: {{ arrivalDaylightPercentage }}%;"></view>
+  </view>
 </view>
 
+<!-- 灯光明暗策略 -->
+<view class="">
+  <text>您的日出时间1：</text>
+  <text>{{ mySunrise1 }}</text>
+  <view></view>
+  <text>您的日落时间1：</text>
+  <text>{{ mySunset1 }}</text>
+  <view></view>
+  <text>您的日出时间2：</text>
+  <text>{{ mySunrise2 }}</text>
+  <view></view>
+  <text>您的日落时间2：</text>
+  <text>{{ mySunset2 }}</text>
+  <view></view>
+  <text>您的日出时间3：</text>
+  <text>{{ mySunrise3 }}</text>
+  <view></view>
+  <text>您的日落时间3：</text>
+  <text>{{ mySunset3 }}</text>
+</view>
 
 <!-- 光强手动控制 -->
 

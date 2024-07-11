@@ -31,13 +31,26 @@
   margin-top: 20px;
 }
 
-.datetime-container {
-  margin-top: 10px;
+.time-container {
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
 }
 
-.datetime-box {
+.time-box {
+  width: 45%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.date-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-box {
   width: 45%;
   padding: 10px;
   border: 1px solid #ccc;
