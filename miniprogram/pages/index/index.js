@@ -1,3 +1,5 @@
+const SunCalc = require('../../utils/suncalc.js'); // 引入suncalc库
+
 Page({
   data: {
     dutyCycle: 0,
@@ -12,72 +14,63 @@ Page({
     arrivalLocation: '',
     arrivalLatitude: null,
     arrivalLongitude: null,
-    departureDate: '2024-01-01',
+
+    departureDate: '2024-07-11',
+    arrivalDate: '2024-07-11',
+
     departureTime: '12:00',
-    arrivalDate: '2024-01-01',
-    arrivalTime: '14:00'
+    arrivalTime: '12:00',
+    currentTime: '',
+    destinationTime: '',
+
+    planStartDate: '2024-07-11',
+    planStartTime: '12:00',
+    planDate: '1',
+    dateRange: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'],
+    planPercentage:'0',
+    timeEquation:'0',
+
+
+    departureSunrise: '',
+    departureSunset: '',
+    arrivalSunrise: '',
+    arrivalSunset: '',
+    departureDaylightPercentage: 0,
+    arrivalDaylightPercentage: 0
   },
 
-    // 当起飞时间选择改变时的处理函数
-    bindDepartureDateChange: function(e) {
-      this.setData({
-        departureDate: e.detail.value
-      });
-    },
-  
-    // 当到达时间选择改变时的处理函数
-    bindArrivalDateChange: function(e) {
-      this.setData({
-        arrivalDate: e.detail.value
-      });
-      // 这里可以调用存储函数，将 arrivalTime 存储到服务器或本地存储中
-      // 示例：this.saveArrivalTime(e.detail.value);
-    },
-  
-    // 示例存储函数，你可以根据实际情况调整
-    saveDepartureDate: function(date) {
-      // 将起飞时间保存到服务器或本地存储
-      console.log('Saving departure date:', date);
-      // 示例：使用 wx.request 发送到服务器保存
-    },
-  
-    saveArrivalDate: function(date) {
-      // 将到达时间保存到服务器或本地存储
-      console.log('Saving arrival date:', date);
-      // 示例：使用 wx.request 发送到服务器保存
-    },
+  // 当起飞日期选择改变时的处理函数
+  bindDepartureDateChange: function(e) {
+    this.setData({
+      departureDate: e.detail.value
+    });
+    this.updateSunTimes();
+  },
 
   // 当起飞时间选择改变时的处理函数
-  bindDepartureTimeChange: function(e) {
+  bindPlanTimeChange: function(e) {
     this.setData({
-      departureTime: e.detail.value
+      planTime: e.detail.value
     });
-    // 这里可以调用存储函数，将 departureTime 存储到服务器或本地存储中
-    // 示例：this.saveDepartureTime(e.detail.value);
+    this.updateSunTimes();
   },
 
-  // 当到达时间选择改变时的处理函数
-  bindArrivalTimeChange: function(e) {
+  // 当到达日期选择改变时的处理函数
+  bindArrivalDateChange: function(e) {
     this.setData({
-      arrivalTime: e.detail.value
+      arrivalDate: e.detail.value
     });
-    // 这里可以调用存储函数，将 arrivalTime 存储到服务器或本地存储中
-    // 示例：this.saveArrivalTime(e.detail.value);
+    this.updateSunTimes();
   },
 
-  // 示例存储函数，你可以根据实际情况调整
-  saveDepartureTime: function(time) {
-    // 将起飞时间保存到服务器或本地存储
-    console.log('Saving departure time:', time);
-    // 示例：使用 wx.request 发送到服务器保存
+  // 当计划开始日期选择改变时的处理函数
+  bindPlanDateChange: function (e) {
+    var index = e.detail.value;
+    var selectedValue = this.data.dateRange[index];
+    this.setData({
+      planDate: selectedValue,
+    });
   },
-
-  saveArrivalTime: function(time) {
-    // 将到达时间保存到服务器或本地存储
-    console.log('Saving arrival time:', time);
-    // 示例：使用 wx.request 发送到服务器保存
-  },
-
 
   // 选择出发地点
   chooseDepartureLocation: function () {
@@ -89,6 +82,7 @@ Page({
           departureLatitude: res.latitude,
           departureLongitude: res.longitude,
         });
+        this.updateSunTimes();
       },
       fail: (err) => {
         console.error(err);
@@ -106,6 +100,7 @@ Page({
           arrivalLatitude: res.latitude,
           arrivalLongitude: res.longitude,
         });
+        this.updateSunTimes();
       },
       fail: (err) => {
         console.error(err);
@@ -113,7 +108,79 @@ Page({
     });
   },
 
-  
+  // 更新日出日落时间
+  updateSunTimes: function() {
+    const departureDateTime = `${this.data.departureDate} ${this.data.departureTime}`;
+    const arrivalDateTime = `${this.data.arrivalDate} ${this.data.arrivalTime}`;
+
+    if (this.data.departureLatitude && this.data.departureLongitude) {
+      const departureTimes = SunCalc.getTimes(new Date(departureDateTime), this.data.departureLatitude, this.data.departureLongitude);
+      this.setData({
+        departureSunrise: departureTimes.sunrise.toTimeString().slice(0, 5),
+        departureSunset: departureTimes.sunset.toTimeString().slice(0, 5),
+        departureDaylightPercentage: this.calculateDaylightPercentage(departureTimes.sunrise, departureTimes.sunset, departureDateTime)
+      });
+    }
+    if (this.data.arrivalLatitude && this.data.arrivalLongitude) {
+      const arrivalTimes = SunCalc.getTimes(new Date(arrivalDateTime), this.data.arrivalLatitude, this.data.arrivalLongitude);
+      this.setData({
+        arrivalSunrise: arrivalTimes.sunrise.toTimeString().slice(0, 5),
+        arrivalSunset: arrivalTimes.sunset.toTimeString().slice(0, 5),
+        arrivalDaylightPercentage: this.calculateDaylightPercentage(arrivalTimes.sunrise, arrivalTimes.sunset, arrivalDateTime)
+      });
+    }
+  },
+
+
+  // 计算日光占比并调整光强
+  calculateDaylightPercentage: function(sunrise, sunset, dateTime) {
+    const currentTime = new Date(dateTime).getTime();
+    const sunriseTime = sunrise.getTime();
+    const sunsetTime = sunset.getTime();
+    
+    if (currentTime < sunriseTime) {
+      this.setDutyCycle(0); // 设为最暗
+      return 0;
+    } else if (currentTime > sunsetTime) {
+      this.setDutyCycle(0); // 设为最暗
+      return 0;
+    } else {
+      const totalDaylightMinutes = (sunsetTime - sunriseTime) / (1000 * 60);
+      const passedDaylightMinutes = (currentTime - sunriseTime) / (1000 * 60);
+      const daylightPercentage = (passedDaylightMinutes / totalDaylightMinutes) * 100;
+      const dutyCycle = Math.floor((passedDaylightMinutes / totalDaylightMinutes) * 255); // 根据时间段调整占空比
+      this.setDutyCycle(dutyCycle);
+      return daylightPercentage;
+    }
+  },
+
+  // 设置占空比
+  setDutyCycle: function(dutyCycle) {
+    this.setData({ dutyCycle: dutyCycle });
+    if (this.data.deviceId && this.data.serviceId && this.data.characteristicId) {
+      let buffer = this.stringToArrayBuffer(String(dutyCycle));
+      console.log('Writing value to characteristic:', dutyCycle);
+      wx.writeBLECharacteristicValue({
+        deviceId: this.data.deviceId,
+        serviceId: this.data.serviceId,
+        characteristicId: this.data.characteristicId,
+        value: buffer,
+        success: (res) => {
+          console.log('Write success', res);
+          wx.showToast({ title: '设置成功', icon: 'success', duration: 2000 });
+        },
+        fail: (err) => {
+          console.error('Write failed', err);
+          wx.showToast({ title: '设置失败', icon: 'none', duration: 2000 });
+        }
+      });
+    } else {
+      console.error('Device, service, or characteristic not found');
+      wx.showToast({ title: '未连接设备', icon: 'none', duration: 2000 });
+    }
+  },
+
+  // 连接蓝牙
   connectBluetooth() {
     let that = this;
     wx.openBluetoothAdapter({
@@ -217,27 +284,13 @@ Page({
   onSliderChange(e) {
     let dutyCycle = e.detail.value;
     this.setData({ dutyCycle: dutyCycle });
-    if (this.data.deviceId && this.data.serviceId && this.data.characteristicId) {
-      let buffer = this.stringToArrayBuffer(String(dutyCycle));
-      console.log('Writing value to characteristic:', dutyCycle);
-      wx.writeBLECharacteristicValue({
-        deviceId: this.data.deviceId,
-        serviceId: this.data.serviceId,
-        characteristicId: this.data.characteristicId,
-        value: buffer,
-        success: (res) => {
-          console.log('Write success', res);
-          wx.showToast({ title: '设置成功', icon: 'success', duration: 2000 });
-        },
-        fail: (err) => {
-          console.error('Write failed', err);
-          wx.showToast({ title: '设置失败', icon: 'none', duration: 2000 });
-        }
-      });
-    } else {
-      console.error('Device, service, or characteristic not found');
-      wx.showToast({ title: '未连接设备', icon: 'none', duration: 2000 });
-    }
+    this.setDutyCycle(dutyCycle);
+  },
+
+  planPecentageChange(e) {
+    let planPercentage = e.detail.value;
+    this.setData({ planPercentage: planPercentage });
+    // this.setDutyCycle(planPercentage);
   },
 
   stringToArrayBuffer(str) {

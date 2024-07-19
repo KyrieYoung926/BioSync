@@ -1,0 +1,100 @@
+<view class="container">
+  <view class="page-title">
+    <text class="bold-text">BioSync™</text>
+  </view>
+  <text class="title">行程起终点</text>
+  <!-- 左侧区域：出发地 -->
+  <view class="left-box">
+    <view>出发地：</view>
+    <button type="primary" bindtap="chooseDepartureLocation">选择出发地点</button>
+    <view>出发地点名：{{departureLocation}}</view>
+    <view>经度：{{departureLongitude}}</view>
+    <view>纬度：{{departureLatitude}}</view>
+  </view>
+  
+  <!-- 右侧区域：到达地 -->
+  <view class="right-box">
+    <view>到达地：</view>
+    <button type="primary" bindtap="chooseArrivalLocation">选择到达地点</button>
+    <view>到达地点名：{{arrivalLocation}}</view>
+    <view>经度：{{arrivalLongitude}}</view>
+    <view>纬度：{{arrivalLatitude}}</view>
+  </view>
+
+  <!-- 日期时间选择 -->
+  <view class="datetime-container">
+    <view class="datetime-box" style="width: 272rpx; height: 156rpx; display: flex; box-sizing: border-box">
+      <text>起飞日期：</text>
+      <picker mode="date" value="{{departureDate}}" bindchange="bindDepartureDateChange">
+        <view class="picker">
+          {{departureDate}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="datetime-box" style="width: 268rpx; height: 152rpx; display: flex; box-sizing: border-box">
+      <text>到达日期：</text>
+      <picker mode="date" value="{{arrivalDate}}" bindchange="bindArrivalDateChange">
+        <view class="picker">
+          {{arrivalDate}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="datetime-box" style="width: 268rpx; height: 150rpx; display: flex; box-sizing: border-box">
+      <text>计划开始日期：</text>
+      <picker mode="date" value="{{planStartDate}}" bindchange="bindPlanStartDateChange">
+        <view class="picker">
+          {{planStartDate}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="datetime-box" style="width: 268rpx; height: 147rpx; display: flex; box-sizing: border-box">
+      <text>计划开始时间：</text>
+      <picker mode="time" value="{{planStartTime}}" bindchange="bindplanStartTimeChange">
+        <view class="picker">
+          {{planStartTime}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="datetime-box" style="width: 629rpx; height: 143rpx; display: flex; box-sizing: border-box">
+      <text>计划调整天数：</text>
+      <picker mode="selector" value="{{planDate}}" range="{{dateRange}}" bindchange="bindPlanDateChange">
+        <view class="picker">{{planDate}}</view>
+      </picker>
+    </view>
+
+  </view>
+
+  <!-- 日出日落时间 -->
+  <view class="sunrise-sunset">
+    <text>出发地日出时间：</text>
+    <text>{{ departureSunrise }}</text>
+    <view></view>
+    <text>出发地日落时间：</text>
+    <text>{{ departureSunset }}</text>
+    <view></view>
+    <text>到达地日出时间：</text>
+    <text>{{ arrivalSunrise }}</text>
+    <view></view>
+    <text>到达地日落时间：</text>
+    <text>{{ arrivalSunset }}</text>
+  </view>
+
+  <!-- 行程模拟 -->
+  <text class="title">行程模拟</text>
+  <slider min="0" max="100" show-value value="{{planPercetage}}" bindchange="planPecentageChange"/>
+  <text>当前时间：</text>
+  <text>{{ currentTime }}</text>
+  <text>目的地时间：</text>
+  <text>{{ destinationTime }}</text>
+
+  <!-- 光强手动控制 -->
+  <text class="title">光强手动控制</text>
+  <slider min="0" max="255" show-value value="{{dutyCycle}}" bindchange="onSliderChange"/>
+  <button type="primary" bindtap="connectBluetooth" style="position: relative; left: -2rpx; top: -3099rpx">连接蓝牙</button>
+  <button type="warn" bindtap="disconnectBluetooth" style="position: relative; left: 0rpx; top: -3108rpx">断开连接</button>
+  <text style="position: relative; left: 1rpx; top: -3054rpx">{{status}}</text>
+</view>

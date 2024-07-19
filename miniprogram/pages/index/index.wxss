@@ -27,34 +27,29 @@
 
 .container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin-top: 20px;
 }
 
-.time-container {
-  margin-top: 20px;
+.datetime-container {
+  margin-top: 10px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  width: 80%;
 }
 
-.time-box {
+.datetime-box {
   width: 45%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-.date-container {
-  margin-top: 20px;
   display: flex;
-  justify-content: space-between;
-}
-
-.date-box {
-  width: 45%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .picker {
@@ -62,14 +57,16 @@
 }
 
 .left-box, .right-box {
-  width: 70%; /* 或者使用 flex: 1; 控制宽度 */
+  width: 80%; /* 或者使用 flex: 1; 控制宽度 */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-bottom: 10px;
 }
 .title {
   font-size: 24px;
-  margin: 20px;
+  margin-top: 200px;
+  margin-bottom: 10px;
 }
 slider {
   width: 80%;

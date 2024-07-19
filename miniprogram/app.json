@@ -4,6 +4,7 @@
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
+    "navigationStyle":"custom",
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "PWM控制",
     "backgroundColor": "#eeeeee",
